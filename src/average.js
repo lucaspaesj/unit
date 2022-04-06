@@ -10,9 +10,24 @@
     - average([2, 2]) // Retorno: 2;
     - average([1, 1]) // Retorno: 1;
     - average([1, '2']) // Retorno: undefined;
-    
+
 */
 
-const average = () => {};
+const average = (arr) => {
+  if (arr[0] === undefined) {
+    return undefined;
+  }
+  const newArr = [];
+  let sum = 0;
+  for (let i = 0; i < arr.length; i += 1) {
+    if (arr[i] === undefined || typeof arr[i] === 'string') {
+      return undefined;
+    }
+    // Referência do "Math.round": https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Global_Objects/Math/round
+    newArr.push(Math.round(arr[i]));
+    sum += newArr[i];
+  }
+  return Math.round(sum / newArr.length);
+};
 
 module.exports = average;
