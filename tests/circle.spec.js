@@ -25,14 +25,25 @@ const circle = require('../src/circle');
 
 describe('4 - Implemente os casos de teste para a função `circle`', () => {
   it('Verifica se ao receber um raio, a função `circle` retorna um objeto contedos os valores esperados', () => {
-    fail('Teste vazio!');
     // ESCREVA SEUS TESTES ABAIXO:
     // Teste se circle retorna undefined, caso o parâmetro passado não seja um número.
+    expect(circle("string")).toBeUndefined();
     // Teste se circle retorna um objeto.
+    const circulo = circle(1);
+    expect(typeof circulo).toBe("object");
     // Teste se o objeto retornado tem 3 propriedades.
+    expect(Object.keys(circulo).length).toBe(3);
     // Teste se a função, quando não recebe nenhum parâmetro, retorna undefined.
+    expect(circle()).toBeUndefined();
     // Teste se dentro do objeto retornado, a função retorna uma key com value igual a circunferência correta para um círculo de raio 2.
+    const circulo2 = circle(2);
+    expect(Object.values(circulo2)[2]).toBe(12.56);
     // Teste se dentro do objeto retornado, a função retorna uma key com value igual a área correta para um círculo de raio 3.
+    const circulo3 = circle(3);
+    expect(Object.values(circulo3)[2]).toBe(18.84);
     // Teste que a função retorna, num objeto, os dados corretos de um círculo de raio 3.
+    expect(Object.values(circulo3)[0]).toBe(3);
+    expect(Object.values(circulo3)[1]).toBeCloseTo(28.26);
+    expect(Object.values(circulo3)[2]).toBe(18.84);
   });
 });
