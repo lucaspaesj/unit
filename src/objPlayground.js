@@ -33,8 +33,29 @@
   arrayGenerator('entries', { sum: 3, mult: 2, div: 1, sub: 0 }) // [ [ 'sum', 3 ], [ 'mult', 2 ], [ 'div', 1 ], [ 'sub', 0 ] ]
 */
 
-const calculator = (number1, number2) => {};
+const calculator = (number1, number2) => {
+  const calc = {
+    sum: number1 + number2,
+    mult: number1 * number2,
+    // Referência do código abaixo: https://pawelgrzybek.com/rounding-and-truncating-numbers-in-javascript/
+    div: Math.floor(number1 / number2),
+    sub: number1 - number2,
+  };
+  return calc;
+};
 
-const arrayGenerator = (type, object) => {};
+const arrayGenerator = (type, object) => {
+  const arr = [];
+  for (let i = 0; i < Object.keys(object).length; i += 1) {
+    if (type === 'keys') {
+      arr.push(Object.keys(object)[i]);
+    } else if (type === 'values') {
+      arr.push(Object.values(object)[i]);
+    } else {
+      arr.push(Object.entries(object)[i]);
+    }
+  }
+  return arr;
+};
 
 module.exports = { calculator, arrayGenerator };
