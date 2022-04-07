@@ -1,5 +1,5 @@
 const createMenu = require('../src/restaurant');
- 
+
 /*
   Você é responsável por escrever o código do sistema de pedidos de um restaurante. Deve ser possível, através desse sistema, cadastrar um menu. Dado que um menu foi cadastrado, o sistema deve disponibilizar um objeto através do qual se consegue:
   - ler o menu cadastrado;
@@ -46,18 +46,21 @@ const createMenu = require('../src/restaurant');
 
 describe('10 - Implemente os casos de teste e a função `createMenu`', () => {
   it('Verifica se a função `createMenu` tem o comportamento esperado', () => {
-    fail('Teste vazio!');
     // TESTE 1: Verifique se o retorno da função createMenu() é um objeto que possui a
     // chave fetchMenu, a qual tem como valor uma função.
     // ```
     // const objetoRetornado = createMenu(); // Retorno: { fetchMenu: () => {}, ... }
     // ```
+    const objetoRetornadoTest1 = createMenu()
+    expect(typeof objetoRetornadoTest1["fetchMenu"]).toBe("function");
     // TESTE 2: Verifique se 'objetoRetornado.fetchMenu()' retorna um objeto cujas chaves são somente `food` e `drink`, 
     // considerando que a função createMenu() foi chamada com o objeto: `{ food: {}, drink: {} }`.
     // ```
     // const objetoRetornado = createMenu({ food: {}, drink: {} });
     // objetoRetornado.fetchMenu() // Retorno: { food: {}, drink: {}}
     // ```
+    const objetoRetornadoTest2 = createMenu({ food: {}, drink: {} });
+    expect(objetoRetornadoTest2.fetchMenu()).toEqual({ food: {}, drink: {}});
     // TESTE 3: Verifique se o menu passado pra função createMenu é identico ao menu recuperado pela função 'objetoRetornado.fetchMenu'
     // ```
     // const objetoRetornado = createMenu(objetoQualquer);
@@ -65,6 +68,9 @@ describe('10 - Implemente os casos de teste e a função `createMenu`', () => {
     // ```
     // Agora faça o PASSO 1 no arquivo `src/restaurant.js`.
     // --------------------------------------------------------------------------------------
+    const objetoQualquerTest3 = { fruit: {}, yogurt: {}, beverage: {} };
+    const objetoRetornadoTest3 = createMenu(objetoQualquerTest3);
+    expect(objetoRetornadoTest3.fetchMenu()).toEqual(objetoQualquerTest3);
     // TESTE 4: Verifique se 'objetoRetornado.consumption', após a criação do menu, retorna um array vazio.
     // ```
     // const objetoRetornado = createMenu(objetoQualquer);
@@ -72,6 +78,9 @@ describe('10 - Implemente os casos de teste e a função `createMenu`', () => {
     // ```
     // Agora faça o PASSO 2 no arquivo `src/restaurant.js`.
     // --------------------------------------------------------------------------------------
+    const objetoQualquerTest4 = { teste: {}, teste2: {}, teste3: {}, teste4: {} };
+    const objetoRetornadoTest4 = createMenu(objetoQualquerTest4);
+    expect(objetoRetornadoTest4.consumption).toEqual([]);
     // TESTE 5: Verifique se, ao chamar uma função associada à chave `order` no objeto retornado,
     // passando uma string como parâmetro (como `objetoRetornado.order('coxinha')`), tal string é adicionada
     // ao array retornado em `objetoRetornado.consumption`.
@@ -82,6 +91,10 @@ describe('10 - Implemente os casos de teste e a função `createMenu`', () => {
     // ```
     // Agora faça o PASSO 3 no arquivo `src/restaurant.js`.
     // --------------------------------------------------------------------------------------
+    const objetoQualquerTest5 = { teste: {}, teste2: {}, teste3: {}, teste4: {} };
+    const objetoRetornadoTest5 = createMenu(objetoQualquerTest5);
+    objetoRetornadoTest5.order("coxinha");
+    expect(objetoRetornadoTest5.consumption).toEqual(["coxinha"]);
     // TESTE 6: Verifique se, ao adicionar três pedidos, dentre bebidas e comidas, o array `objetoRetornado.consumption` contém os itens pedidos.
     // ```
     // objetoRetornado.order("coxinha");
@@ -92,6 +105,13 @@ describe('10 - Implemente os casos de teste e a função `createMenu`', () => {
     // ```
     // Agora faça o TESTE 7 deste arquivo.
     // --------------------------------------------------------------------------------------
+    const objetoQualquerTest6 = { teste: {}, teste2: {}, teste3: {}, teste4: {} };
+    const objetoRetornadoTest6 = createMenu(objetoQualquerTest6);
+    objetoRetornadoTest6.order("coxinha");
+    objetoRetornadoTest6.order("agua");
+    objetoRetornadoTest6.order("sopa");
+    objetoRetornadoTest6.order("sashimi");
+    expect(objetoRetornadoTest6.consumption).toEqual(["coxinha", "agua", "sopa", "sashimi"]);
     // TESTE 7: Verifique se a função `order` aceita que pedidos repetidos sejam acrescidos a consumption.
     // ```
     // objetoRetornado.order('coxinha');
@@ -101,6 +121,12 @@ describe('10 - Implemente os casos de teste e a função `createMenu`', () => {
     // ```
     // Agora faça o TESTE 8 deste arquivo.
     // --------------------------------------------------------------------------------------
+    const objetoQualquerTest7 = { teste: {}, teste2: {}, teste3: {}, teste4: {} };
+    const objetoRetornadoTest7 = createMenu(objetoQualquerTest7);
+    objetoRetornadoTest7.order("coxinha");
+    objetoRetornadoTest7.order("agua");
+    objetoRetornadoTest7.order("coxinha");
+    expect(objetoRetornadoTest7.consumption).toEqual(['coxinha', 'agua', 'coxinha']);
     // TESTE 8: Verifique se, ao chamar `objetoRetornado.pay()`, retorna-se a soma dos preços de tudo que foi pedido, conforme registrado em `objetoRetornado.consumption`
     // ```
     // objetoRetornado.order('coxinha');
@@ -109,5 +135,12 @@ describe('10 - Implemente os casos de teste e a função `createMenu`', () => {
     // objetoRetornado.pay() // Retorno: somaDosPreçosDosPedidos
     // ```
     // Agora faça o PASSO 4 no arquivo `src/restaurant.js`.
+    const objetoQualquerTest8 = { food: { coxinha: 5 }, drink: { agua: 2 } };
+    const objetoRetornadoTest8 = createMenu(objetoQualquerTest8);
+    objetoRetornadoTest8.order('coxinha');
+    objetoRetornadoTest8.order('agua');
+    objetoRetornadoTest8.order('coxinha');
+    const sum = objetoQualquerTest8.coxinha.preço + objetoQualquerTest8.agua.preco;
+    expect(objetoRetornadoTest8.pay()).toBe((sum * 0,1) + sum);
   });
 });
