@@ -101,23 +101,23 @@ const createMenu = (obj) => {
       return restaurant;
     },
     pay: () => {
+      const restaurantMenu = obj;
       const restaurant = {};
       Object.assign(restaurant, menu);
+      const itemsMenu = Object.values(restaurantMenu);
       let sum = 0;
-      for(let i in obj){
-        console.log(i);
+      for (let i = 0; i < restaurant.consumption.length; i += 1) {
+        let item = restaurant.consumption[i];
+        if (item === Object.keys(itemsMenu[0])[0]) {
+          sum += parseInt(Object.values(itemsMenu[0]), 10);
+        } else if (item === Object.keys(itemsMenu[1])[0]) {
+          sum += parseInt(Object.values(itemsMenu[1]), 10);
+        }
       }
-      return sum;
+      return sum + (sum * 0.1);
     },
   };
   return menu;
 };
-
-const objetoQualquerTest8 = { food: { coxinha: 5 }, drink: { agua: 2 } };
-const objetoRetornadoTest8 = createMenu(objetoQualquerTest8);
-objetoRetornadoTest8.order('coxinha');
-objetoRetornadoTest8.order('agua');
-objetoRetornadoTest8.order('coxinha');
-console.log(objetoRetornadoTest8.pay());
 
 module.exports = createMenu;

@@ -140,7 +140,7 @@ describe('10 - Implemente os casos de teste e a função `createMenu`', () => {
     objetoRetornadoTest8.order('coxinha');
     objetoRetornadoTest8.order('agua');
     objetoRetornadoTest8.order('coxinha');
-    const sum = objetoQualquerTest8.coxinha.preço + objetoQualquerTest8.agua.preco;
-    expect(objetoRetornadoTest8.pay()).toBe((sum * 0,1) + sum);
+    const sum = objetoQualquerTest8.food.coxinha + objetoQualquerTest8.drink.agua + objetoQualquerTest8.food.coxinha;
+    expect(objetoRetornadoTest8.pay()).toBe((sum * 0.1) + sum);
   });
 });
